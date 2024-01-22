@@ -12,6 +12,13 @@ The REST API is specificed by the OpenAPI Specification and maintained in the [`
 
 Questions or requests for this SDK should be posted via [GitHub issues for this repo](https://github.com/saviynt/gosaviynt/issues).
 
+## Usage
+
+The base page, `gosaviynt`, includes basic methods to retrieve an `*oauth2.Token` and `*http.Client`. These can be used with the auto-generated client SDK in the `saviynt` package.
+
+* An example of using `gosaviynt.FetchToken()` is availabe in [`cmd/client`](cmd/client/main.go).
+* An example of using the generated client is available in [`cmd/runtimecontrolsdata`](cmd/runtimecontrolsdata/main.go)
+
  [used-by-svg]: https://sourcegraph.com/github.com/saviynt/gosaviynt/-/badge.svg
  [used-by-url]: https://sourcegraph.com/github.com/saviynt/gosaviynt?badge
  [build-status-svg]: https://github.com/saviynt/gosaviynt/workflows/test/badge.svg
