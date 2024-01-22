@@ -381,8 +381,6 @@ func (c *APIClient) prepareRequest(
 		pieces[0] = queryDescape.Replace(pieces[0])
 		return strings.Join(pieces, "=")
 	})
-
-	fmt.Printf(  "REUQ#EST URL: %s\n" ,  url.String() )
 	
 	// Generate a new request
 	if body != nil {

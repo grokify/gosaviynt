@@ -38,23 +38,18 @@ func FetchToken(baseURL, username, password string) (*oauth2.Token, error) {
 	reqBody := LoginRequestBody{
 		Username: username,
 		Password: password}
-	b, err := json.Marshal(reqBody)
-	if err != nil {
+	if b, err := json.Marshal(reqBody); err != nil {
 		return nil, err
-	}
-
-	resp, err := http.Post(baseURL+RelURLLogin, "application/json; charset=utf-8", bytes.NewBuffer(b))
-	if err != nil {
+	} else if resp, err := http.Post(baseURL+RelURLLogin, "application/json; charset=utf-8", bytes.NewBuffer(b)); err != nil {
 		return nil, err
-	}
-
-	if resp.StatusCode >= 300 {
+	} else if resp.StatusCode >= 300 {
 		return nil, fmt.Errorf("login api status code is (%d)", resp.StatusCode)
-	}
-	if b, err = io.ReadAll(resp.Body); err != nil {
+	} else if b, err = io.ReadAll(resp.Body); err != nil {
 		return nil, err
 	} else {
 		tok := &oauth2.Token{}
 		return tok, json.Unmarshal(b, tok)
 	}
 }
+
+func Pointer[E any](e E) *E { return &e }
