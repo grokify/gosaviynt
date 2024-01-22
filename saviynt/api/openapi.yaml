@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  title: Saviynt EIC API
+  version: "1.0"
+servers:
+- url: http://localhost:3000
+paths:
+  /fetchRuntimeControlsDataV2:
+    post:
+      operationId: fetchRuntimeControlsDataV2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchRuntimeControlsDataV2'
+        description: ""
+      responses:
+        "200":
+          description: OK
+      summary: Fetch Runtime Controls Data V2
+      tags:
+      - Analytics
+components:
+  requestBodies:
+    FetchRuntimeControlsDataV2:
+      content:
+        application/json:
+          schema:
+            properties:
+              requestor:
+                x-stoplight:
+                  id: um9gl00s9jvvy
+              analyticsname:
+                x-stoplight:
+                  id: djw23wcc7iy96
+              analyticsid:
+                x-stoplight:
+                  id: 84vrlbdh9c50n
+              max:
+                x-stoplight:
+                  id: 6q1hw851mmn7f
+              offset:
+                x-stoplight:
+                  id: zr4fypdldd8nu
+              attributes:
+                x-stoplight:
+                  id: 7zyhivot226pw
+  schemas:
+    FetchRuntimeControlsDataV2:
+      example:
+        offset: offset
+        analyticsname: analyticsname
+        max: max
+        attributes: "{}"
+        analyticsid: analyticsid
+        requestor: requestor
+      properties:
+        requestor:
+          type: string
+          x-stoplight:
+            id: 8lwakmt6icwf0
+        analyticsname:
+          type: string
+          x-stoplight:
+            id: bcoap517ja2dr
+        analyticsid:
+          type: string
+          x-stoplight:
+            id: oamryaepvpj6y
+        attributes:
+          type: object
+          x-stoplight:
+            id: qh4y4bhhckmjs
+        max:
+          type: string
+          x-stoplight:
+            id: x1fpaihq38wtb
+        offset:
+          type: string
+          x-stoplight:
+            id: lcbkfr9j2lz5b
+      title: FetchRuntimeControlsDataV2
+      x-stoplight:
+        id: y72ldde5mw2fm
+x-stoplight:
+  id: uyxb46mfjt7dp
