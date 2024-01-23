@@ -36,21 +36,20 @@ func NewClient(baseURL, username, password string) (*http.Client, error) {
 
 // FetchToken retrieves a new token from the login API.
 func FetchToken(baseURL, username, password string) (*oauth2.Token, error) {
-	reqBody := LoginRequestBody{
+	if b, err := json.Marshal(LoginRequestBody{
 		Username: username,
-		Password: password}
-	if b, err := json.Marshal(reqBody); err != nil {
+		Password: password}); err != nil {
 		return nil, err
 	} else if resp, err := http.Post(
 		strings.TrimRight(strings.TrimSpace(baseURL), "/")+RelURLLogin,
 		"application/json; charset=utf-8", bytes.NewBuffer(b)); err != nil {
 		return nil, err
 	} else if resp.StatusCode >= 300 {
-		b, err := io.ReadAll(resp.Body)
-		if err != nil {
+		if b, err := io.ReadAll(resp.Body); err != nil {
 			return nil, err
+		} else {
+			return nil, fmt.Errorf("login api status code is (%d) with body (%s)", resp.StatusCode, string(b))
 		}
-		return nil, fmt.Errorf("login api status code is (%d) with body (%s)", resp.StatusCode, string(b))
 	} else if b, err = io.ReadAll(resp.Body); err != nil {
 		return nil, err
 	} else {
