@@ -39,7 +39,7 @@ func main() {
 
 	req := apiClient.AnalyticsAPI.FetchRuntimeControlsDataV2(context.Background())
 
-	r2 := saviynt.FetchRuntimeControlsDataV2{
+	r2 := saviynt.FetchRuntimeControlsDataV2Request{
 		Analyticsname: paramAnalyticsName,
 		Attributes:    map[string]any{"timeFrame": "10000"},
 		Max:           gosaviynt.Pointer("50"),
@@ -47,7 +47,7 @@ func main() {
 	}
 	fmt.Printf("%v\n", r2)
 
-	req2 := req.FetchRuntimeControlsDataV2(r2)
+	req2 := req.FetchRuntimeControlsDataV2Request(r2)
 
 	resp, err := req2.Execute()
 	if err != nil {
