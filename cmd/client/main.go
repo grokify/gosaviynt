@@ -15,6 +15,8 @@ func main() {
 
 	flag.Parse()
 
+	fmt.Printf("logging into (%s) with user (%s)\n", *paramBaseURL, *paramUsername)
+
 	tok, err := gosaviynt.FetchToken(*paramBaseURL, *paramUsername, *paramPassword)
 	if err != nil {
 		log.Fatal(err)

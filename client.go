@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 
 	"golang.org/x/oauth2"
 )
@@ -40,10 +41,16 @@ func FetchToken(baseURL, username, password string) (*oauth2.Token, error) {
 		Password: password}
 	if b, err := json.Marshal(reqBody); err != nil {
 		return nil, err
-	} else if resp, err := http.Post(baseURL+RelURLLogin, "application/json; charset=utf-8", bytes.NewBuffer(b)); err != nil {
+	} else if resp, err := http.Post(
+		strings.TrimRight(strings.TrimSpace(baseURL), "/")+RelURLLogin,
+		"application/json; charset=utf-8", bytes.NewBuffer(b)); err != nil {
 		return nil, err
 	} else if resp.StatusCode >= 300 {
-		return nil, fmt.Errorf("login api status code is (%d)", resp.StatusCode)
+		b, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+		return nil, fmt.Errorf("login api status code is (%d) with body (%s)", resp.StatusCode, string(b))
 	} else if b, err = io.ReadAll(resp.Body); err != nil {
 		return nil, err
 	} else {
